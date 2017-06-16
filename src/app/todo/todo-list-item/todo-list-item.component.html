@@ -1,0 +1,5 @@
+<li id="{{todo.id}}" [ngClass]="{'complete': status == 2}">
+    <input (click)="toggleComplete()" type="checkbox" />
+    <span>{{todo.text}}</span>
+    <button (click)="removeTodo()" class="btn">X</button>
+</li>

@@ -1,0 +1,58 @@
+li {
+    width: 100%;
+    min-height: 70px;
+    border: none;
+    font-size: 25px;
+    background: #fff;
+    border-top: 1px solid #ccc;
+    display: flex;
+    align-items: center;
+    position: relative;
+    line-height: 25px;
+}
+
+li.complete {
+    color: #dedede;
+    text-decoration: line-through;
+}
+
+li input {
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+li input:after {
+    content: '';
+    background: url("https://firebasestorage.googleapis.com/v0/b/todo-59ee8.appspot.com/o/angular2%2Ftodo%2Ftodo-sprite.png?alt=media&token=e9166bcb-7d3f-455b-bc5d-2f04cb929442") no-repeat;
+    background-position: left -40px;
+    display: block;
+    width: 32px;
+    height: 36px;
+    margin: 0 10px;
+}
+
+li.complete input:after {
+    background-position: left 0;
+}
+
+li span {
+    padding: 0 35px 0 0;
+    white-space: pre-line;
+    word-break: break-all;
+}
+
+li button {
+    position: absolute;
+    right: 0;
+    background: none;
+    color: red;
+    font-size: 20px;
+    top: 0;
+    bottom: 0;
+    /*display: none;*/
+}
+
+
+/*li:hover button {
+    display: block;
+}*/
