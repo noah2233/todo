@@ -31,6 +31,10 @@ li input:after {
     margin: 0 10px;
 }
 
+li input:hover:after {
+    background-position: left 0;
+}
+
 li.complete input:after {
     background-position: left 0;
 }
