@@ -10,6 +10,9 @@ import { TodoModule } from './todo/todo.module';
 // Ng2PageScroll
 import { Ng2PageScrollModule } from 'ng2-page-scroll';
 
+/* NgRx */
+import { StoreModule } from '@ngrx/store';
+
 @NgModule({
   declarations: [
     AppComponent
@@ -19,7 +22,8 @@ import { Ng2PageScrollModule } from 'ng2-page-scroll';
     FormsModule,
     HttpModule,
     TodoModule,
-    Ng2PageScrollModule.forRoot()
+    Ng2PageScrollModule.forRoot(),
+    StoreModule.forRoot({})
   ],
   providers: [],
   bootstrap: [AppComponent]

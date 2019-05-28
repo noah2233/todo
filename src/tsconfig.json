@@ -1,10 +1,18 @@
 {
   "compilerOptions": {
     "baseUrl": "",
+    "paths": {
+      "@services/*": ["app/services/*"],
+      "@core/*": ["app/core/*"],
+      "@shared/*": ["app/shared/*"],
+    },
     "declaration": false,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "lib": ["es6", "dom"],
+    "lib": [
+      "es6",
+      "dom"
+    ],
     "mapRoot": "./",
     "module": "es6",
     "moduleResolution": "node",

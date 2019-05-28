@@ -1,8 +1,8 @@
 import { Component, OnInit, AfterViewInit, Input, Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/platform-browser';
 
-import { ITodo } from '../../shared/interface';
-import { todoStatus } from '../../shared/enum';
+import { ITodo } from '../../core/interface';
+import { todoStatus } from '../../core/enum';
 import { TodoService } from '../todo.service';
 
 import { PageScrollService, PageScrollInstance } from 'ng2-page-scroll';
@@ -12,7 +12,7 @@ import { PageScrollService, PageScrollInstance } from 'ng2-page-scroll';
   templateUrl: './todo-list-item.component.html',
   styleUrls: ['./todo-list-item.component.css']
 })
-export class TodoListItemComponent implements OnInit {
+export class TodoListItemComponent implements OnInit, AfterViewInit {
   @Input() todo: ITodo;
   status: todoStatus = todoStatus.uncompleted;
 
@@ -24,7 +24,7 @@ export class TodoListItemComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-    let pageScrollInstance: PageScrollInstance = PageScrollInstance.simpleInstance(this._document, '#' + this.todo.id.toString());
+    const pageScrollInstance: PageScrollInstance = PageScrollInstance.simpleInstance(this._document, '#' + this.todo.id.toString());
     this._pageScrollService.start(pageScrollInstance);
   }
 
@@ -34,7 +34,7 @@ export class TodoListItemComponent implements OnInit {
   }
 
   toggleComplete(): boolean {
-    this.status == todoStatus.complete ? this.status = todoStatus.uncompleted : this.status = todoStatus.complete;
+    this.status === todoStatus.complete ? this.status = todoStatus.uncompleted : this.status = todoStatus.complete;
     this._todoService.toggleComplete(this.todo);
 
     return true;

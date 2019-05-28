@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { ITodo } from '../shared/interface';
-import * as _ from "lodash";
-import { todoStatus } from "../shared/enum";
+import { ITodo } from '../core/interface';
+import * as _ from 'lodash';
+import { todoStatus } from '@core/enum';
 
 @Injectable()
 export class TodoService {
   private _todos: ITodo[] = [];
-  private _numberOfIncompleteTodo: number = 0;
+  private _numberOfIncompleteTodo = 0;
 
   set numberOfIncompleteTodo(value: number) {
     if (value >= 0) {

@@ -1,4 +1,4 @@
-import {todoStatus} from "./enum";
+import { todoStatus } from './enum';
 
 export interface ITodo {
   id: number;

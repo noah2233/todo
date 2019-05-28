@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from "@angular/forms";
 
-import { ITodo } from '../shared/interface'
-import { todoStatus } from '../shared/enum'
+import { ITodo } from '../core/interface'
+import { todoStatus } from '../core/enum'
 import { TodoService } from './todo.service';
 
 import * as _ from "lodash";
