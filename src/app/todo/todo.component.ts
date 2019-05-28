@@ -7,6 +7,11 @@ import { TodoService } from './todo.service';
 
 import * as _ from 'lodash';
 
+// ngrx
+import { Store } from '@ngrx/store';
+
+import { State } from '@state/reducer.ts';
+
 @Component({
   selector: 'todo',
   templateUrl: './todo.component.html',
@@ -18,7 +23,7 @@ export class TodoComponent implements OnInit {
   _showTodosListFooter = true;
 
   get todos(): ITodo[] {
-    let todos: ITodo[] = this._todoService.getTodos();
+    const todos: ITodo[] = this._todoService.getTodos();
     this._showTodosListFooter = todos.length > 0;
 
     // if the status is any - return all of the list
@@ -39,7 +44,10 @@ export class TodoComponent implements OnInit {
     return this._showTodosListFooter;
   }
 
-  constructor(private _todoService: TodoService, private _formBuilder: FormBuilder) {
+  constructor(
+    private _todoService: TodoService,
+    private _formBuilder: FormBuilder,
+    private _store: Store<State>) {
   }
 
   ngOnInit() {
@@ -57,7 +65,8 @@ export class TodoComponent implements OnInit {
 
     // if enter has been pressed
     if (event.keyCode === 13 && newTodo !== '') {
-      const todo: ITodo = this._todoService.addTodo(newTodo);
+      // const todo: ITodo = this._todoService.addTodo(newTodo);
+      this._store.dispatch({ type: 'addTodo', payload: newTodo });
 
       this.todoForm.get('newTodo').reset('', []);
     }

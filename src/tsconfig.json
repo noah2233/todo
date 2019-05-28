@@ -5,6 +5,7 @@
       "@services/*": ["app/services/*"],
       "@core/*": ["app/core/*"],
       "@shared/*": ["app/shared/*"],
+      "@state/*": ["app/state/*"]
     },
     "declaration": false,
     "emitDecoratorMetadata": true,

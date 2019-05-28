@@ -13,6 +13,8 @@ import { Ng2PageScrollModule } from 'ng2-page-scroll';
 /* NgRx */
 import { StoreModule } from '@ngrx/store';
 
+// add reducer to StoreModule
+
 @NgModule({
   declarations: [
     AppComponent
