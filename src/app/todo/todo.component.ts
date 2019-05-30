@@ -8,9 +8,10 @@ import { TodoService } from './todo.service';
 import * as _ from 'lodash';
 
 // ngrx
-import { Store } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
 
-import { State } from '@state/reducer.ts';
+import * as fromReducer from '@state/reducer.ts';
+import * as fromActions from '@state/actions.ts';
 
 @Component({
   selector: 'todo',
@@ -47,7 +48,7 @@ export class TodoComponent implements OnInit {
   constructor(
     private _todoService: TodoService,
     private _formBuilder: FormBuilder,
-    private _store: Store<State>) {
+    private _store: Store<fromReducer.State>) {
   }
 
   ngOnInit() {
@@ -66,7 +67,7 @@ export class TodoComponent implements OnInit {
     // if enter has been pressed
     if (event.keyCode === 13 && newTodo !== '') {
       // const todo: ITodo = this._todoService.addTodo(newTodo);
-      this._store.dispatch({ type: 'addTodo', payload: newTodo });
+      this._store.dispatch({ type: fromActions.ActionTypes.AddTodo, payload: newTodo });
 
       this.todoForm.get('newTodo').reset('', []);
     }

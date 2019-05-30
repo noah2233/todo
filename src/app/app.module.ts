@@ -13,6 +13,7 @@ import { Ng2PageScrollModule } from 'ng2-page-scroll';
 /* NgRx */
 import { StoreModule } from '@ngrx/store';
 
+import { reducer } from '@state/reducer';
 // add reducer to StoreModule
 
 @NgModule({
@@ -25,7 +26,7 @@ import { StoreModule } from '@ngrx/store';
     HttpModule,
     TodoModule,
     Ng2PageScrollModule.forRoot(),
-    StoreModule.forRoot({})
+    StoreModule.forRoot({ reducer })
   ],
   providers: [],
   bootstrap: [AppComponent]
