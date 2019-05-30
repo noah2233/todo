@@ -66,8 +66,8 @@ export class TodoComponent implements OnInit {
 
     // if enter has been pressed
     if (event.keyCode === 13 && newTodo !== '') {
-      // const todo: ITodo = this._todoService.addTodo(newTodo);
-      this._store.dispatch({ type: fromActions.ActionTypes.AddTodo, payload: newTodo });
+      const todo: ITodo = this._todoService.addTodo(newTodo);
+      // this._store.dispatch({ type: fromActions.ActionTypes.AddTodo, payload: newTodo });
 
       this.todoForm.get('newTodo').reset('', []);
     }
