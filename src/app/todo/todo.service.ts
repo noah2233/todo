@@ -7,6 +7,7 @@ import { todoStatus } from '@core/enum';
 export class TodoService {
   private _todos: ITodo[] = [];
   private _numberOfIncompleteTodo = 0;
+  private todosUrl = 'api/todos';
 
   set numberOfIncompleteTodo(value: number) {
     if (value >= 0) {
@@ -26,7 +27,7 @@ export class TodoService {
   }
 
   addTodo(todoValue: string): ITodo {
-    let todo: ITodo = { id: new Date().getTime(), text: todoValue, status: todoStatus.uncompleted };
+    const todo: ITodo = { id: new Date().getTime(), text: todoValue, status: todoStatus.uncompleted };
     this._todos.push(todo);
     this.numberOfIncompleteTodo = this.numberOfIncompleteTodo + 1;
 
@@ -38,15 +39,16 @@ export class TodoService {
       return todoItem.id === todo.id;
     });
 
-    if (todo.status == todoStatus.uncompleted) {
+    if (todo.status === todoStatus.uncompleted) {
       this.numberOfIncompleteTodo = this.numberOfIncompleteTodo - 1;
     }
     return true;
   }
 
   toggleComplete(todo: ITodo): boolean {
-    todo.status == todoStatus.complete ? this.numberOfIncompleteTodo = this.numberOfIncompleteTodo + 1 : this.numberOfIncompleteTodo = this.numberOfIncompleteTodo - 1;
-    todo.status == todoStatus.complete ? todo.status = todoStatus.uncompleted : todo.status = todoStatus.complete;
+    todo.status === todoStatus.complete ? this.numberOfIncompleteTodo = this.numberOfIncompleteTodo + 1 :
+      this.numberOfIncompleteTodo = this.numberOfIncompleteTodo - 1;
+    todo.status === todoStatus.complete ? todo.status = todoStatus.uncompleted : todo.status = todoStatus.complete;
 
     return true;
   }

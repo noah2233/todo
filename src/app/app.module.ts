@@ -15,7 +15,9 @@ import { StoreModule } from '@ngrx/store';
 
 import { reducer } from '@state/reducer';
 // add reducer to StoreModule
+import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 
+import { TodoData } from './todo-data';
 @NgModule({
   declarations: [
     AppComponent
@@ -26,7 +28,8 @@ import { reducer } from '@state/reducer';
     HttpModule,
     TodoModule,
     Ng2PageScrollModule.forRoot(),
-    StoreModule.forRoot({ reducer })
+    StoreModule.forRoot({ reducer }),
+    HttpClientInMemoryWebApiModule.forRoot(TodoData),
   ],
   providers: [],
   bootstrap: [AppComponent]
