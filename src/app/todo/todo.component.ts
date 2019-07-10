@@ -16,10 +16,11 @@ export class TodoComponent implements OnInit {
   todoForm: FormGroup = this._formBuilder.group({ newTodo: ['', []] });
   todosStatus: todoStatus = 0;
   _showTodosListFooter = true;
+  private _todos: ITodo[] = [];
 
   get todos(): ITodo[] {
-    const todos: ITodo[] = this._todoService.getTodos();
-    this._showTodosListFooter = todos.length > 0;
+    const todos: ITodo[] = this._todos;
+    this._showTodosListFooter = this._todos.length > 0;
 
     // if the status is any - return all of the list
     if (this.todosStatus === 0) {
@@ -29,6 +30,10 @@ export class TodoComponent implements OnInit {
     return _.filter(todos, (todo: ITodo) => {
       return todo.status === this.todosStatus;
     });
+  }
+
+  set todos(todos: ITodo[]) {
+    this._todos = todos;
   }
 
   get numberOfIncompleteTodo(): number {
@@ -48,19 +53,27 @@ export class TodoComponent implements OnInit {
     this.initTodos();
   }
 
-  initTodos() { }
+  initTodos() {
+    this._todoService.getTodos().subscribe((result) => {
+      this.todos = result;
+    })
+  }
 
-  addTodo(event): boolean {
-    const newTodo = this.todoForm.get('newTodo').value;
+  addTodo(event) {
+    const todoValue = this.todoForm.get('newTodo').value;
 
     // if enter has been pressed
-    if (event.keyCode === 13 && newTodo !== '') {
-      const todo: ITodo = this._todoService.addTodo(newTodo);
-      // this._store.dispatch({ type: fromActions.ActionTypes.AddTodo, payload: newTodo });
+    if (event.keyCode === 13 && todoValue !== '') {
+      const todo: ITodo = { id: new Date().getTime(), text: todoValue, status: todoStatus.uncompleted };
 
-      this.todoForm.get('newTodo').reset('', []);
+      this._todoService.addTodo(todo).subscribe((result) => {
+        const todos: ITodo[] = this._todos;
+        todos.push(result);
+        this._todos = todos;
+
+        this.todoForm.get('newTodo').reset('', []);
+      });
     }
-    return true;
   }
 
   setTodosStatus(status: todoStatus): boolean {

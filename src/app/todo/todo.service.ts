@@ -1,6 +1,13 @@
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+
+import { map, tap, catchError } from 'rxjs/operators';
+import { Observable, of, throwError } from 'rxjs';
+
 import { ITodo } from '../core/interface';
+
 import * as _ from 'lodash';
+
 import { todoStatus } from '@core/enum';
 
 @Injectable()
@@ -19,19 +26,24 @@ export class TodoService {
     return this._numberOfIncompleteTodo;
   }
 
-  constructor() {
+  constructor(private _httpClient: HttpClient) {
   }
 
-  getTodos(): ITodo[] {
-    return this._todos;
+  getTodos(): Observable<ITodo[]> {
+    return this._httpClient.get<ITodo[]>(this.todosUrl).pipe(
+      tap(data => console.log('getTodos: ' + JSON.stringify(data))),
+      catchError(this.handleError)
+    );
   }
 
-  addTodo(todoValue: string): ITodo {
-    const todo: ITodo = { id: new Date().getTime(), text: todoValue, status: todoStatus.uncompleted };
-    this._todos.push(todo);
-    this.numberOfIncompleteTodo = this.numberOfIncompleteTodo + 1;
+  addTodo(todo: ITodo): Observable<ITodo> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-    return todo;
+    return this._httpClient.post<ITodo>(this.todosUrl, todo, { headers: headers })
+      .pipe(
+        tap(data => console.log('createTodo: ' + JSON.stringify(data))),
+        catchError(this.handleError)
+      );
   }
 
   removeTodo(todo: ITodo): boolean {
@@ -51,6 +63,22 @@ export class TodoService {
     todo.status === todoStatus.complete ? todo.status = todoStatus.uncompleted : todo.status = todoStatus.complete;
 
     return true;
+  }
+
+  private handleError(err) {
+    // in a real world app, we may send the server to some remote logging infrastructure
+    // instead of just logging it to the console
+    let errorMessage: string;
+    if (err.error instanceof ErrorEvent) {
+      // A client-side or network error occurred. Handle it accordingly.
+      errorMessage = `An error occurred: ${err.error.message}`;
+    } else {
+      // The backend returned an unsuccessful response code.
+      // The response body may contain clues as to what went wrong,
+      errorMessage = `Backend returned code ${err.status}: ${err.body.error}`;
+    }
+    console.error(err);
+    return throwError(errorMessage);
   }
 
 }
