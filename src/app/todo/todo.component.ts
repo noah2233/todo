@@ -7,12 +7,6 @@ import { TodoService } from './todo.service';
 
 import * as _ from 'lodash';
 
-// ngrx
-import { Store, select } from '@ngrx/store';
-
-import * as fromReducer from '@state/reducer.ts';
-import * as fromActions from '@state/actions.ts';
-
 @Component({
   selector: 'todo',
   templateUrl: './todo.component.html',
@@ -47,8 +41,7 @@ export class TodoComponent implements OnInit {
 
   constructor(
     private _todoService: TodoService,
-    private _formBuilder: FormBuilder,
-    private _store: Store<fromReducer.State>) {
+    private _formBuilder: FormBuilder) {
   }
 
   ngOnInit() {

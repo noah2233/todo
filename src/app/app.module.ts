@@ -10,10 +10,6 @@ import { TodoModule } from './todo/todo.module';
 // Ng2PageScroll
 import { Ng2PageScrollModule } from 'ng2-page-scroll';
 
-/* NgRx */
-import { StoreModule } from '@ngrx/store';
-
-import { reducer } from '@state/reducer';
 // add reducer to StoreModule
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 
@@ -28,7 +24,6 @@ import { TodoData } from './todo-data';
     HttpModule,
     TodoModule,
     Ng2PageScrollModule.forRoot(),
-    StoreModule.forRoot({ reducer }),
     HttpClientInMemoryWebApiModule.forRoot(TodoData),
   ],
   providers: [],
