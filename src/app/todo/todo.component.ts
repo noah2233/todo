@@ -13,7 +13,7 @@ import * as _ from 'lodash';
   styleUrls: ['./todo.component.css']
 })
 export class TodoComponent implements OnInit {
-  todoForm: FormGroup;
+  todoForm: FormGroup = this._formBuilder.group({ newTodo: ['', []] });
   todosStatus: todoStatus = 0;
   _showTodosListFooter = true;
 
@@ -45,14 +45,10 @@ export class TodoComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.buildTodoForm();
+    this.initTodos();
   }
 
-  buildTodoForm(): void {
-    this.todoForm = this._formBuilder.group({
-      newTodo: ['', []]
-    });
-  }
+  initTodos() { }
 
   addTodo(event): boolean {
     const newTodo = this.todoForm.get('newTodo').value;
