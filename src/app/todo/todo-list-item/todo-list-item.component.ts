@@ -25,9 +25,7 @@ export class TodoListItemComponent implements OnInit, AfterViewInit {
     @Inject(DOCUMENT) private _document: any) {
   }
 
-  ngOnInit() {
-    // this.status = this.todo.status;
-  }
+  ngOnInit() { }
 
   ngAfterViewInit() {
     const pageScrollInstance: PageScrollInstance = PageScrollInstance.simpleInstance(this._document, '#' + this.todo.id.toString());
