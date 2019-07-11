@@ -1,5 +1,5 @@
 import { Component, OnInit, AfterViewInit, Input, Inject, Output, EventEmitter } from '@angular/core';
-import { DOCUMENT } from '@angular/platform-browser';
+import { DOCUMENT } from "@angular/common";
 
 import { ITodo } from '@core/interface';
 import { todoStatus } from '@core/enum';
