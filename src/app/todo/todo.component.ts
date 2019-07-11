@@ -64,7 +64,7 @@ export class TodoComponent implements OnInit {
 
     // if enter has been pressed
     if (event.keyCode === 13 && todoValue !== '') {
-      const todo: ITodo = { id: new Date().getTime(), text: todoValue, status: todoStatus.uncompleted };
+      const todo: ITodo = { id: null, text: todoValue, status: todoStatus.uncompleted };
 
       this._todoService.addTodo(todo).subscribe((result) => {
         const todos: ITodo[] = this._todos;
