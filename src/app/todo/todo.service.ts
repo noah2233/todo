@@ -46,15 +46,23 @@ export class TodoService {
       );
   }
 
-  removeTodo(todo: ITodo): boolean {
-    _.remove(this._todos, function (todoItem) {
-      return todoItem.id === todo.id;
-    });
+  removeTodo(todo: ITodo): Observable<{}> {
+    // _.remove(this._todos, function (todoItem) {
+    //   return todoItem.id === todo.id;
+    // });
 
-    if (todo.status === todoStatus.uncompleted) {
-      this.numberOfIncompleteTodo = this.numberOfIncompleteTodo - 1;
-    }
-    return true;
+    // if (todo.status === todoStatus.uncompleted) {
+    //   this.numberOfIncompleteTodo = this.numberOfIncompleteTodo - 1;
+    // }
+    // return true;
+
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const url = `${this.todosUrl}/${todo.id}`;
+    return this._httpClient.delete<ITodo>(url, { headers: headers })
+      .pipe(
+        tap(data => console.log('deleteProduct: ' + todo.id)),
+        catchError(this.handleError)
+      );
   }
 
   toggleComplete(todo: ITodo): boolean {
