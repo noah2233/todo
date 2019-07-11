@@ -1,18 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-import { map, tap, catchError } from 'rxjs/operators';
-import { Observable, of, throwError } from 'rxjs';
+import { tap, catchError } from 'rxjs/operators';
+import { Observable, throwError } from 'rxjs';
 
 import { ITodo } from '../core/interface';
 
 import * as _ from 'lodash';
 
-import { todoStatus } from '@core/enum';
-
 @Injectable()
 export class TodoService {
-  private _todos: ITodo[] = [];
   private _numberOfIncompleteTodo = 0;
   private todosUrl = 'api/todos';
 
@@ -55,7 +52,12 @@ export class TodoService {
         catchError(this.handleError)
       );
   }
-  
+
+  // todo
+  // updateTodo(todo: ITodo): Observable<{}> {
+  //   const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+  // }
+
   private handleError(err) {
     // in a real world app, we may send the server to some remote logging infrastructure
     // instead of just logging it to the console
