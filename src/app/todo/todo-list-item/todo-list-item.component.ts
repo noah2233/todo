@@ -1,9 +1,8 @@
 import { Component, OnInit, AfterViewInit, Input, Inject, Output, EventEmitter } from '@angular/core';
 import { DOCUMENT } from '@angular/platform-browser';
 
-import { ITodo } from '../../core/interface';
-import { todoStatus } from '../../core/enum';
-import { TodoService } from '../todo.service';
+import { ITodo } from '@core/interface';
+import { todoStatus } from '@core/enum';
 
 import { PageScrollService, PageScrollInstance } from 'ng2-page-scroll';
 
@@ -22,7 +21,6 @@ export class TodoListItemComponent implements OnInit, AfterViewInit {
   }
 
   constructor(
-    private _todoService: TodoService,
     private _pageScrollService: PageScrollService,
     @Inject(DOCUMENT) private _document: any) {
   }
