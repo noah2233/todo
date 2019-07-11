@@ -47,15 +47,6 @@ export class TodoService {
   }
 
   removeTodo(todo: ITodo): Observable<{}> {
-    // _.remove(this._todos, function (todoItem) {
-    //   return todoItem.id === todo.id;
-    // });
-
-    // if (todo.status === todoStatus.uncompleted) {
-    //   this.numberOfIncompleteTodo = this.numberOfIncompleteTodo - 1;
-    // }
-    // return true;
-
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const url = `${this.todosUrl}/${todo.id}`;
     return this._httpClient.delete<ITodo>(url, { headers: headers })
@@ -64,15 +55,7 @@ export class TodoService {
         catchError(this.handleError)
       );
   }
-
-  toggleComplete(todo: ITodo): boolean {
-    todo.status === todoStatus.complete ? this.numberOfIncompleteTodo = this.numberOfIncompleteTodo + 1 :
-      this.numberOfIncompleteTodo = this.numberOfIncompleteTodo - 1;
-    todo.status === todoStatus.complete ? todo.status = todoStatus.uncompleted : todo.status = todoStatus.complete;
-
-    return true;
-  }
-
+  
   private handleError(err) {
     // in a real world app, we may send the server to some remote logging infrastructure
     // instead of just logging it to the console

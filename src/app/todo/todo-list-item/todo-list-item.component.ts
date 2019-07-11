@@ -15,13 +15,20 @@ import { PageScrollService, PageScrollInstance } from 'ng2-page-scroll';
 export class TodoListItemComponent implements OnInit, AfterViewInit {
   @Input() todo: ITodo;
   @Output() removeTodoEvent = new EventEmitter<ITodo>();
-  status: todoStatus = todoStatus.uncompleted;
+  @Output() toggleCompleteEvent = new EventEmitter<ITodo>();
 
-  constructor(private _todoService: TodoService, private _pageScrollService: PageScrollService, @Inject(DOCUMENT) private _document: any) {
+  get status(): todoStatus {
+    return this.todo.status;
+  }
+
+  constructor(
+    private _todoService: TodoService,
+    private _pageScrollService: PageScrollService,
+    @Inject(DOCUMENT) private _document: any) {
   }
 
   ngOnInit() {
-    this.status = this.todo.status;
+    // this.status = this.todo.status;
   }
 
   ngAfterViewInit() {
@@ -30,16 +37,11 @@ export class TodoListItemComponent implements OnInit, AfterViewInit {
   }
 
   removeTodo() {
-    // this._todoService.removeTodo(this.todo);
-    // return true;
     this.removeTodoEvent.emit(this.todo);
   }
 
-  toggleComplete(): boolean {
-    this.status === todoStatus.complete ? this.status = todoStatus.uncompleted : this.status = todoStatus.complete;
-    this._todoService.toggleComplete(this.todo);
-
-    return true;
+  toggleComplete() {
+    this.toggleCompleteEvent.emit(this.todo);
   }
 
 }

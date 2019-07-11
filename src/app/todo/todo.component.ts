@@ -15,13 +15,10 @@ import * as _ from 'lodash';
 export class TodoComponent implements OnInit {
   todoForm: FormGroup = this._formBuilder.group({ newTodo: ['', []] });
   todosStatus: todoStatus = 0;
-  _showTodosListFooter = true;
   private _todos: ITodo[] = [];
 
   get todos(): ITodo[] {
     const todos: ITodo[] = this._todos;
-    this._showTodosListFooter = this._todos.length > 0;
-
     // if the status is any - return all of the list
     if (this.todosStatus === 0) {
       return todos;
@@ -36,12 +33,8 @@ export class TodoComponent implements OnInit {
     this._todos = todos;
   }
 
-  get numberOfIncompleteTodo(): number {
-    return this._todoService.numberOfIncompleteTodo;
-  }
-
-  get showTodosListFooter(): boolean {
-    return this._showTodosListFooter;
+  get showFooter(): boolean {
+    return this._todos.length > 0 ? true : false;
   }
 
   constructor(
@@ -87,5 +80,9 @@ export class TodoComponent implements OnInit {
         return todoItem.id === todo.id;
       });
     })
+  }
+
+  toggleComplete(todo: ITodo) {
+    todo.status === todoStatus.complete ? todo.status = todoStatus.uncompleted : todo.status = todoStatus.complete;
   }
 }

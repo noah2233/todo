@@ -9,6 +9,7 @@ import { ITodo } from '@core/interface';
 export class TodoListComponent implements OnInit {
   @Input() todos: ITodo[];
   @Output() removeTodoEvent = new EventEmitter<ITodo>();
+  @Output() toggleCompleteEvent = new EventEmitter<ITodo>();
 
   constructor() {
   }
@@ -18,6 +19,10 @@ export class TodoListComponent implements OnInit {
 
   removeTodo(todo: ITodo) {
     this.removeTodoEvent.emit(todo);
+  }
+
+  toggleComplete(todo: ITodo) {
+    this.toggleCompleteEvent.emit(todo);
   }
 
 }

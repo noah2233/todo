@@ -1,9 +1,8 @@
 <form [formGroup]="todoForm" novalidate>
     <input type="text" placeholder="add a new task" formControlName="newTodo" (keyup)="addTodo($event)" />
 </form>
-<todo-list (removeTodoEvent)="removeTodo($event)" [todos]="todos"></todo-list>
-<footer *ngIf="showTodosListFooter" class="todo-list-footer">
-    <span class="todos-left">{{numberOfIncompleteTodo}} todos left!</span>
+<todo-list (removeTodoEvent)="removeTodo($event)" (toggleCompleteEvent)="toggleComplete($event)" [todos]="todos"></todo-list>
+<footer *ngIf="showFooter" class="todo-list-footer">
     <ul class="list-unstyled">
         <li><a (click)="setTodosStatus(0)" [ngClass]="{'active':todosStatus == 0}">all</a></li>
         <li><a (click)="setTodosStatus(1)" [ngClass]="{'active':todosStatus == 1}">uncompleted</a></li>
