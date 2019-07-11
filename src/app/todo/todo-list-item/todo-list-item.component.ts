@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, Input, Inject } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Input, Inject, Output, EventEmitter } from '@angular/core';
 import { DOCUMENT } from '@angular/platform-browser';
 
 import { ITodo } from '../../core/interface';
@@ -14,6 +14,7 @@ import { PageScrollService, PageScrollInstance } from 'ng2-page-scroll';
 })
 export class TodoListItemComponent implements OnInit, AfterViewInit {
   @Input() todo: ITodo;
+  @Output() removeTodoEvent = new EventEmitter<ITodo>();
   status: todoStatus = todoStatus.uncompleted;
 
   constructor(private _todoService: TodoService, private _pageScrollService: PageScrollService, @Inject(DOCUMENT) private _document: any) {
@@ -28,9 +29,10 @@ export class TodoListItemComponent implements OnInit, AfterViewInit {
     this._pageScrollService.start(pageScrollInstance);
   }
 
-  removeTodo(): boolean {
-    this._todoService.removeTodo(this.todo);
-    return true;
+  removeTodo() {
+    // this._todoService.removeTodo(this.todo);
+    // return true;
+    this.removeTodoEvent.emit(this.todo);
   }
 
   toggleComplete(): boolean {

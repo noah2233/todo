@@ -81,4 +81,8 @@ export class TodoComponent implements OnInit {
     return true;
   }
 
+  removeTodo(todo: ITodo) {
+    console.log(todo);
+  }
+
 }
