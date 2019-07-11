@@ -81,6 +81,7 @@ export class TodoComponent implements OnInit {
     return true;
   }
 
+  // todo - remove item form db and update screen
   removeTodo(todo: ITodo) {
     console.log(todo);
   }
