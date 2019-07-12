@@ -24,7 +24,7 @@ import { TodoData } from './todo-data';
     HttpModule,
     TodoModule,
     Ng2PageScrollModule.forRoot(),
-    HttpClientInMemoryWebApiModule.forRoot(TodoData),
+    HttpClientInMemoryWebApiModule.forRoot(TodoData, { delay: 0 }),
     HttpClientModule
   ],
   providers: [],
