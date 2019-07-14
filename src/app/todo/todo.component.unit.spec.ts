@@ -59,4 +59,10 @@ describe('TodoComponent', () => {
 
     expect(component.todos.length).toBe(1);
   });
+
+  it('setTodosStatus - change status to the status that was received', () => {
+    component.setTodosStatus(todoStatus.complete);
+
+    expect(component.todosStatus).toBe(todoStatus.complete);
+  });
 });
