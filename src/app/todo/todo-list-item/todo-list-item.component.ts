@@ -17,7 +17,7 @@ export class TodoListItemComponent implements OnInit, AfterViewInit {
   @Output() toggleCompleteEvent = new EventEmitter<ITodo>();
 
   get status(): todoStatus {
-    return this.todo.status;
+    return this.todo ? this.todo.status : null;
   }
 
   constructor(
@@ -28,8 +28,11 @@ export class TodoListItemComponent implements OnInit, AfterViewInit {
   ngOnInit() { }
 
   ngAfterViewInit() {
-    const pageScrollInstance: PageScrollInstance = PageScrollInstance.simpleInstance(this._document, '#' + this.todo.id.toString());
-    this._pageScrollService.start(pageScrollInstance);
+    if (this.todo) {
+      const pageScrollInstance: PageScrollInstance =
+        PageScrollInstance.simpleInstance(this._document, '#' + this.todo.id.toString());
+      this._pageScrollService.start(pageScrollInstance);
+    }
   }
 
   removeTodo() {
