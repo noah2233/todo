@@ -50,18 +50,17 @@ describe('TodoComponent', () => {
     expect(component.todos.length).toBe(1);
   });
 
-  // it('addTodo - should call add todo and add the result to the todos', () => {
-  //   const service = TestBed.get(TodoService);
+  it('addTodo - should call add todo and add the result to the todos', () => {
+    const service = TestBed.get(TodoService);
 
-  //   const todos: ITodo[] = [{ id: 1, status: todoStatus.uncompleted, text: 'some todo' }];
-  //   const todo: ITodo = { id: 2, text: 'new todo', status: todoStatus.uncompleted };
+    const todo: ITodo = { id: 1, text: 'new todo', status: todoStatus.uncompleted };
 
-  //   spyOn(service, 'addTodo').and.callFake(() => {
-  //     return Observable.from([todo]);
-  //   });
+    spyOn(service, 'addTodo').and.callFake(() => {
+      return Observable.from([todo]);
+    });
 
-  //   component.addTodo(null);
+    component.addTodo({ keyCode: 13 }, 'new todo');
 
-  //   expect(component.todos.length).toBe(2);
-  // });
+    expect(component.todos.length).toBe(1);
+  });
 });

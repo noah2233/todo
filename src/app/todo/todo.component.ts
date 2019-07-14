@@ -54,8 +54,8 @@ export class TodoComponent implements OnInit {
     });
   }
 
-  addTodo(event, todoValue) {
-    // if enter has been pressed
+  addTodo(event, todoValue: string) {
+    // if enter has been pressed and the value is not empty
     if (event.keyCode === 13 && todoValue !== '') {
       const todo: ITodo = { id: null, text: todoValue, status: todoStatus.uncompleted };
 
