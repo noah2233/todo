@@ -36,4 +36,13 @@ export class TodoData implements InMemoryDbService {
         ];
         return { todos };
     }
+
+    // Overrides the genId method to ensure that a hero always has an id.
+    // If the heroes array is empty,
+    // the method below returns the initial number (11).
+    // if heroes array is not empty, the method below returns the highest
+    // hero id + 1.
+    genId(todos: ITodo[]): number {
+        return todos.length > 0 ? Math.max(...todos.map(hero => hero.id)) + 1 : 1;
+    }
 }
