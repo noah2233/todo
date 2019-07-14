@@ -69,9 +69,8 @@ export class TodoComponent implements OnInit {
     }
   }
 
-  setTodosStatus(status: todoStatus): boolean {
+  setTodosStatus(status: todoStatus) {
     this.todosStatus = status;
-    return true;
   }
 
   removeTodo(todo: ITodo) {
