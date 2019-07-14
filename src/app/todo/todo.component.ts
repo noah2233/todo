@@ -51,7 +51,7 @@ export class TodoComponent implements OnInit {
       this.todos = result;
     }, error => {
       alert('some thing want wrong!');
-    })
+    });
   }
 
   addTodo(event) {
