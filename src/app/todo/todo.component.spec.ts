@@ -7,6 +7,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TodoComponent } from './todo.component';
 
 import { TodoService } from './todo.service';
+
+import { Observable } from 'rxjs';
+import 'rxjs/add/observable/from';
+
+import { ITodo } from '@core/interface';
+import { todoStatus } from '@core/enum';
 describe('TodoComponent', () => {
   let component: TodoComponent;
   let fixture: ComponentFixture<TodoComponent>;
@@ -32,5 +38,15 @@ describe('TodoComponent', () => {
   });
 
   it('should call to getTodos and init todos with the results', () => {
+    const service = TestBed.get(TodoService);
+    const todos: ITodo[] = [{ id: 1, status: todoStatus.uncompleted, text: 'some todo' }];
+
+    spyOn(service, 'getTodos').and.callFake(() => {
+      return Observable.from([todos]);
+    });
+
+    component.ngOnInit();
+
+    expect(component.todos.length).toBe(1);
   });
 });
