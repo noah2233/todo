@@ -49,6 +49,8 @@ export class TodoComponent implements OnInit {
   initTodos() {
     this._todoService.getTodos().subscribe((result) => {
       this.todos = result;
+    }, error => {
+      alert('some thing want wrong!');
     })
   }
 

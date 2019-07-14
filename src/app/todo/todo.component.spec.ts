@@ -30,4 +30,7 @@ describe('TodoComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should call to getTodos and init todos with the results', () => {
+  });
 });
