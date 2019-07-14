@@ -37,7 +37,7 @@ describe('TodoComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should call to getTodos and init todos with the results', () => {
+  it('initTodos - should call to getTodos and init todos with the results', () => {
     const service = TestBed.get(TodoService);
     const todos: ITodo[] = [{ id: 1, status: todoStatus.uncompleted, text: 'some todo' }];
 
@@ -49,4 +49,19 @@ describe('TodoComponent', () => {
 
     expect(component.todos.length).toBe(1);
   });
+
+  // it('addTodo - should call add todo and add the result to the todos', () => {
+  //   const service = TestBed.get(TodoService);
+
+  //   const todos: ITodo[] = [{ id: 1, status: todoStatus.uncompleted, text: 'some todo' }];
+  //   const todo: ITodo = { id: 2, text: 'new todo', status: todoStatus.uncompleted };
+
+  //   spyOn(service, 'addTodo').and.callFake(() => {
+  //     return Observable.from([todo]);
+  //   });
+
+  //   component.addTodo(null);
+
+  //   expect(component.todos.length).toBe(2);
+  // });
 });
