@@ -60,7 +60,7 @@ describe('TodoComponent', () => {
     expect(component.todos.length).toBe(1);
   });
 
-  it('setTodosStatus - change status to the status that was received', () => {
+  it('setTodosStatus - change status of the list to the status that was received', () => {
     component.setTodosStatus(todoStatus.complete);
 
     expect(component.todosStatus).toBe(todoStatus.complete);
@@ -81,6 +81,11 @@ describe('TodoComponent', () => {
     expect(component.todos.length).toBe(0);
   });
 
-  // it('toggleComplete - change the todo status to its inverse', () => {
-  // });
+  it('toggleComplete - change the todo status to its inverse', () => {
+    const todo: ITodo = { id: 1, text: 'new todo', status: todoStatus.uncompleted };
+
+    component.toggleComplete(todo);
+
+    expect(todo.status).toBe(todoStatus.complete);
+  });
 });
