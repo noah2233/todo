@@ -66,6 +66,18 @@ describe('TodoComponent', () => {
     expect(component.todosStatus).toBe(todoStatus.complete);
   });
 
-  // it('removeTodo - should call remove todo and remove the result from the todos', () => {
-  // });
+  it('removeTodo - should call remove todo and remove the result from the todos', () => {
+    const service = TestBed.get(TodoService);
+    const todo: ITodo = { id: 1, text: 'new todo', status: todoStatus.uncompleted };
+
+    component.todos = [{ id: 1, text: 'new todo', status: todoStatus.uncompleted }];
+
+    spyOn(service, 'removeTodo').and.callFake(() => {
+      return Observable.from([todo]);
+    });
+
+    component.removeTodo(todo);
+
+    expect(component.todos.length).toBe(0);
+  });
 });

@@ -15,26 +15,10 @@ import * as _ from 'lodash';
 export class TodoComponent implements OnInit {
   todoForm: FormGroup = this._formBuilder.group({ newTodo: ['', []] });
   todosStatus: todoStatus = 0;
-  private _todos: ITodo[] = [];
-
-  get todos(): ITodo[] {
-    const todos: ITodo[] = this._todos;
-    // if the status is any - return all of the list
-    if (this.todosStatus === 0) {
-      return todos;
-    }
-
-    return _.filter(todos, (todo: ITodo) => {
-      return todo.status === this.todosStatus;
-    });
-  }
-
-  set todos(todos: ITodo[]) {
-    this._todos = todos;
-  }
+  public todos: ITodo[] = [];
 
   get showFooter(): boolean {
-    return this._todos.length > 0 ? true : false;
+    return this.todos.length > 0 ? true : false;
   }
 
   constructor(
@@ -60,7 +44,7 @@ export class TodoComponent implements OnInit {
       const todo: ITodo = { id: null, text: todoValue, status: todoStatus.uncompleted };
 
       this._todoService.addTodo(todo).subscribe((result) => {
-        const todos: ITodo[] = this._todos;
+        const todos: ITodo[] = this.todos;
         todos.push(result);
         this.todos = todos;
 
@@ -83,5 +67,17 @@ export class TodoComponent implements OnInit {
 
   toggleComplete(todo: ITodo) {
     todo.status === todoStatus.complete ? todo.status = todoStatus.uncompleted : todo.status = todoStatus.complete;
+  }
+
+  filterTodos() {
+    const todos: ITodo[] = this.todos;
+    // if the status is any - return all of the list
+    if (this.todosStatus === 0) {
+      return todos;
+    }
+
+    return _.filter(todos, (todo: ITodo) => {
+      return todo.status === this.todosStatus;
+    });
   }
 }
