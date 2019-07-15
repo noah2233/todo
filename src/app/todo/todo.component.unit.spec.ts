@@ -80,4 +80,7 @@ describe('TodoComponent', () => {
 
     expect(component.todos.length).toBe(0);
   });
+
+  // it('toggleComplete - change the todo status to its inverse', () => {
+  // });
 });
