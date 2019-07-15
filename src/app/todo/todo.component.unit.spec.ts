@@ -88,4 +88,7 @@ describe('TodoComponent', () => {
 
     expect(todo.status).toBe(todoStatus.complete);
   });
+
+  // it('filterTodos - ', () => {
+  // });
 });
