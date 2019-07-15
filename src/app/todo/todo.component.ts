@@ -62,7 +62,7 @@ export class TodoComponent implements OnInit {
       this._todoService.addTodo(todo).subscribe((result) => {
         const todos: ITodo[] = this._todos;
         todos.push(result);
-        this._todos = todos;
+        this.todos = todos;
 
         this.todoForm.get('newTodo').reset('', []);
       });
@@ -75,7 +75,7 @@ export class TodoComponent implements OnInit {
 
   removeTodo(todo: ITodo) {
     this._todoService.removeTodo(todo).subscribe((result) => {
-      _.remove(this._todos, function (todoItem) {
+      _.remove(this.todos, function (todoItem) {
         return todoItem.id === todo.id;
       });
     })

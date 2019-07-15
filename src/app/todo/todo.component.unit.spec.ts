@@ -65,4 +65,7 @@ describe('TodoComponent', () => {
 
     expect(component.todosStatus).toBe(todoStatus.complete);
   });
+
+  // it('removeTodo - should call remove todo and remove the result from the todos', () => {
+  // });
 });
