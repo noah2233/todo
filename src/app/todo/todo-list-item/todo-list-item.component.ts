@@ -2,7 +2,7 @@ import { Component, OnInit, AfterViewInit, Input, Inject, Output, EventEmitter }
 import { DOCUMENT } from "@angular/common";
 
 import { ITodo } from '@core/interface';
-import { todoStatus } from '@core/enum';
+import { TodoStatus } from '@core/enum';
 
 import { PageScrollService, PageScrollInstance } from 'ng2-page-scroll';
 
@@ -16,7 +16,7 @@ export class TodoListItemComponent implements OnInit, AfterViewInit {
   @Output() removeTodoEvent = new EventEmitter<ITodo>();
   @Output() toggleCompleteEvent = new EventEmitter<ITodo>();
 
-  get status(): todoStatus {
+  get status(): TodoStatus {
     return this.todo ? this.todo.status : null;
   }
 

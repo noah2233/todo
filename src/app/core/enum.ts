@@ -1,4 +1,4 @@
-export enum todoStatus {
+export enum TodoStatus {
   uncompleted = 1,
   complete
 }

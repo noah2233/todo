@@ -2,7 +2,7 @@ import { InMemoryDbService } from 'angular-in-memory-web-api';
 
 import { ITodo } from '@core/interface';
 
-import { todoStatus } from '@core/enum';
+import { TodoStatus } from '@core/enum';
 
 export class TodoData implements InMemoryDbService {
 
@@ -10,27 +10,27 @@ export class TodoData implements InMemoryDbService {
         const todos: ITodo[] = [
             {
                 'id': 1,
-                status: todoStatus.uncompleted,
+                status: TodoStatus.uncompleted,
                 text: '1'
             },
             {
                 'id': 2,
-                status: todoStatus.uncompleted,
+                status: TodoStatus.uncompleted,
                 text: '2'
             },
             {
                 'id': 3,
-                status: todoStatus.uncompleted,
+                status: TodoStatus.uncompleted,
                 text: '5'
             },
             {
                 'id': 4,
-                status: todoStatus.complete,
+                status: TodoStatus.complete,
                 text: '8'
             },
             {
                 'id': 5,
-                status: todoStatus.uncompleted,
+                status: TodoStatus.uncompleted,
                 text: '10'
             }
         ];

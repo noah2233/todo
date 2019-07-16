@@ -12,7 +12,7 @@ import { Observable } from 'rxjs';
 import 'rxjs/add/observable/from';
 
 import { ITodo } from '@core/interface';
-import { todoStatus } from '@core/enum';
+import { TodoStatus } from '@core/enum';
 describe('TodoComponent', () => {
   let component: TodoComponent;
   let fixture: ComponentFixture<TodoComponent>;
@@ -35,7 +35,7 @@ describe('TodoComponent', () => {
 
   it('initTodos - should call to getTodos and init todos with the results', () => {
     const service = TestBed.get(TodoService);
-    const todos: ITodo[] = [{ id: 1, status: todoStatus.uncompleted, text: 'some todo' }];
+    const todos: ITodo[] = [{ id: 1, status: TodoStatus.uncompleted, text: 'some todo' }];
 
     spyOn(service, 'getTodos').and.callFake(() => {
       return Observable.from([todos]);
@@ -49,7 +49,7 @@ describe('TodoComponent', () => {
   it('addTodo - should call add todo and add the result to the todos', () => {
     const service = TestBed.get(TodoService);
 
-    const todo: ITodo = { id: 1, text: 'new todo', status: todoStatus.uncompleted };
+    const todo: ITodo = { id: 1, text: 'new todo', status: TodoStatus.uncompleted };
 
     spyOn(service, 'addTodo').and.callFake(() => {
       return Observable.from([todo]);
@@ -61,16 +61,16 @@ describe('TodoComponent', () => {
   });
 
   it('setTodosStatus - change status of the list to the status that was received', () => {
-    component.setTodosStatus(todoStatus.complete);
+    component.setTodosStatus(TodoStatus.complete);
 
-    expect(component.todosStatus).toBe(todoStatus.complete);
+    expect(component.todosStatus).toBe(TodoStatus.complete);
   });
 
   it('removeTodo - should call remove todo and remove the result from the todos', () => {
     const service = TestBed.get(TodoService);
-    const todo: ITodo = { id: 1, text: 'new todo', status: todoStatus.uncompleted };
+    const todo: ITodo = { id: 1, text: 'new todo', status: TodoStatus.uncompleted };
 
-    component.todos = [{ id: 1, text: 'new todo', status: todoStatus.uncompleted }];
+    component.todos = [{ id: 1, text: 'new todo', status: TodoStatus.uncompleted }];
 
     spyOn(service, 'removeTodo').and.callFake(() => {
       return Observable.from([todo]);
@@ -82,13 +82,24 @@ describe('TodoComponent', () => {
   });
 
   it('toggleComplete - change the todo status to its inverse', () => {
-    const todo: ITodo = { id: 1, text: 'new todo', status: todoStatus.uncompleted };
+    const todo: ITodo = { id: 1, text: 'new todo', status: TodoStatus.uncompleted };
 
     component.toggleComplete(todo);
 
-    expect(todo.status).toBe(todoStatus.complete);
+    expect(todo.status).toBe(TodoStatus.complete);
   });
 
-  it('filterTodos - ', () => {
+  it('filterTodos - filter todos list according to todosStatus', () => {
+    let todos: ITodo[] = [
+      { id: 1, text: 'todo 1', status: TodoStatus.uncompleted },
+      { id: 2, text: 'todo 2', status: TodoStatus.complete },
+      { id: 3, text: 'todo 3', status: TodoStatus.uncompleted }
+    ];
+
+    const todoStatus: TodoStatus = TodoStatus.complete;
+
+    todos = component.filterTodos(todos, todoStatus);
+
+    expect(todos.length).toBe(1);
   });
 });
