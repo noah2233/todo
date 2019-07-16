@@ -41,7 +41,7 @@ describe('TodoComponent', () => {
       return Observable.from([todos]);
     });
 
-    component.ngOnInit();
+    component.initTodos();
 
     expect(component.todos.length).toBe(1);
   });
