@@ -69,15 +69,14 @@ export class TodoComponent implements OnInit {
     todo.status === todoStatus.complete ? todo.status = todoStatus.uncompleted : todo.status = todoStatus.complete;
   }
 
-  filterTodos() {
-    const todos: ITodo[] = this.todos;
+  filterTodos(todos: ITodo[], todosStatus: todoStatus) {
     // if the status is any - return all of the list
-    if (this.todosStatus === 0) {
+    if (todosStatus === 0) {
       return todos;
     }
 
     return _.filter(todos, (todo: ITodo) => {
-      return todo.status === this.todosStatus;
+      return todo.status === todosStatus;
     });
   }
 }
