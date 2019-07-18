@@ -18,7 +18,7 @@ export class TodoComponent implements OnInit {
   public todos: ITodo[] = [];
 
   get showFooter(): boolean {
-    return this.todos.length > 0 ? true : false;
+    return this.todos.length > 0 ? true : false; 
   }
 
   constructor(
