@@ -62,7 +62,7 @@ export class TodoComponent implements OnInit {
       _.remove(this.todos, function (todoItem) {
         return todoItem.id === todo.id;
       });
-    })
+    });
   }
 
   toggleComplete(todo: ITodo) {
