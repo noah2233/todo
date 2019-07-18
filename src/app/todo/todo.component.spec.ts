@@ -29,4 +29,8 @@ describe('TodoComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  // it('on click enter with data - add todo with todo to list', () => {
+
+  // });
 });
