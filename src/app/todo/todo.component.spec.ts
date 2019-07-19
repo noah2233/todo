@@ -31,9 +31,9 @@ describe('TodoComponent', () => {
     expect(component).toBeTruthy();
   });
 
-//   it('on enter click on input - if not empty, create new todo with data on input', () => {
-//     const inputDE = fixture.debugElement.query(By.css('input[name=newTodo]'));
-//     const inputNE = inputDE ? inputDE.nativeElement : null;
-//     console.log(inputDE);
-//   });
+  //   it('on enter click on input - if not empty, create new todo with data on input', () => {
+  //     const inputDE = fixture.debugElement.query(By.css('input[name=newTodo]'));
+  //     const inputNE = inputDE ? inputDE.nativeElement : null;
+  //     console.log(inputDE);
+  //   });
 });

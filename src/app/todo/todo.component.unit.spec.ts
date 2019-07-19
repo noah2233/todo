@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, FormControl, FormGroup, FormBuilder } from '@angular/forms';
 
 import { TodoComponent } from './todo.component';
 
@@ -19,7 +19,7 @@ describe('TodoComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule, FormsModule, ReactiveFormsModule],
-      providers: [TodoService],
+      providers: [TodoService, FormBuilder],
       declarations: [TodoComponent],
       schemas: [NO_ERRORS_SCHEMA]
     })
@@ -47,14 +47,15 @@ describe('TodoComponent', () => {
 
   it('addTodo - should call add todo and add the result to the todos', () => {
     const service = TestBed.get(TodoService);
-
-    const todo: ITodo = { id: 1, text: 'new todo', status: TodoStatus.uncompleted };
+    const _formBuilder = TestBed.get(FormBuilder);
+    const todoForm: FormGroup = _formBuilder.group({ newTodo: ['newTodo', []] });
+    const todo: ITodo = { id: 1, text: todoForm.controls['newTodo'].value, status: TodoStatus.uncompleted };
 
     spyOn(service, 'addTodo').and.callFake(() => {
       return Observable.from([todo]);
     });
 
-    component.addTodo({ keyCode: 13 }, 'new todo');
+    component.addTodo({ keyCode: 13 }, todoForm as FormGroup);
 
     expect(component.todos.length).toBe(1);
   });

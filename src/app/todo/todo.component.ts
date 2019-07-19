@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 
 import { ITodo } from '../core/interface'
 import { TodoStatus } from '../core/enum'
@@ -38,10 +38,10 @@ export class TodoComponent implements OnInit {
     });
   }
 
-  addTodo(event, todoValue: string) {
+  addTodo(event, todoForm: FormGroup) {
     // if enter has been pressed and the value is not empty
-    if (event.keyCode === 13 && this.todoForm.valid) {
-      const todo: ITodo = { id: null, text: todoValue, status: TodoStatus.uncompleted };
+    if (event.keyCode === 13 && todoForm.valid) {
+      const todo: ITodo = { id: null, text: todoForm.get('newTodo').value, status: TodoStatus.uncompleted };
 
       this._todoService.addTodo(todo).subscribe((result) => {
         const todos: ITodo[] = this.todos;
