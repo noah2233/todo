@@ -1,11 +1,13 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, FormGroup, FormBuilder } from '@angular/forms';
 
 import { TodoComponent } from './todo.component';
+import { TodoListComponent } from './todo-list/todo-list.component';
+import { TodoListItemComponent } from './todo-list-item/todo-list-item.component';
 
 import { TodoService } from './todo.service';
+import { By } from '@angular/platform-browser';
 describe('TodoComponent', () => {
   let component: TodoComponent;
   let fixture: ComponentFixture<TodoComponent>;
@@ -14,8 +16,7 @@ describe('TodoComponent', () => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule, FormsModule, ReactiveFormsModule],
       providers: [TodoService],
-      declarations: [TodoComponent],
-      schemas: [NO_ERRORS_SCHEMA]
+      declarations: [TodoComponent, TodoListComponent, TodoListItemComponent],
     })
       .compileComponents();
   }));
@@ -30,6 +31,9 @@ describe('TodoComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  // it('on enter click on input - if not empty, create new todo with data on input', () => {
-  // });
-});
+//   it('on enter click on input - if not empty, create new todo with data on input', () => {
+//     const inputDE = fixture.debugElement.query(By.css('input[name=newTodo]'));
+//     const inputNE = inputDE ? inputDE.nativeElement : null;
+//     console.log(inputDE);
+//   });
+// });

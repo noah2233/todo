@@ -1,5 +1,5 @@
 <form [formGroup]="todoForm" novalidate>
-    <input type="text" placeholder="add a new task" formControlName="newTodo"
+    <input type="text" placeholder="add a new task" formControlName="newTodo" name="newTodo"
         (keyup)="addTodo($event, todoForm.get('newTodo').value)" />
 </form>
 <todo-list (removeTodoEvent)="removeTodo($event)" (toggleCompleteEvent)="toggleComplete($event)"
