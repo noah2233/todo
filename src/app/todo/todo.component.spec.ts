@@ -29,4 +29,7 @@ describe('TodoComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  // it('on enter click on input - if not empty, create new todo with data on input', () => {
+  // });
 });
