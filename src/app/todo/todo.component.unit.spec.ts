@@ -12,7 +12,7 @@ import 'rxjs/add/observable/from';
 
 import { ITodo } from '@core/interface';
 import { TodoStatus } from '@core/enum';
-describe('TodoComponent', () => {
+describe('TodoComponent unit testing', () => {
   let component: TodoComponent;
   let fixture: ComponentFixture<TodoComponent>;
 
@@ -55,7 +55,7 @@ describe('TodoComponent', () => {
       return Observable.from([todo]);
     });
 
-    component.addTodo({ keyCode: 13 }, todoForm as FormGroup);
+    component.addTodo({ key: 'Enter' }, todoForm as FormGroup);
 
     expect(component.todos.length).toBe(1);
   });
