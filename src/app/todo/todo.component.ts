@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { ITodo } from '../core/interface'
 import { TodoStatus } from '../core/enum'
@@ -13,7 +13,7 @@ import * as _ from 'lodash';
   styleUrls: ['./todo.component.css']
 })
 export class TodoComponent implements OnInit {
-  todoForm: FormGroup = this._formBuilder.group({ newTodo: ['', []] });
+  todoForm: FormGroup = this._formBuilder.group({ newTodo: ['', Validators.required] });
   todosStatus: TodoStatus = 0;
   public todos: ITodo[] = [];
 
@@ -40,7 +40,7 @@ export class TodoComponent implements OnInit {
 
   addTodo(event, todoValue: string) {
     // if enter has been pressed and the value is not empty
-    if (event.keyCode === 13 && todoValue !== '') {
+    if (event.keyCode === 13 && this.todoForm.valid) {
       const todo: ITodo = { id: null, text: todoValue, status: TodoStatus.uncompleted };
 
       this._todoService.addTodo(todo).subscribe((result) => {
