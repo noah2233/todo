@@ -81,12 +81,18 @@ describe('TodoComponent unit testing', () => {
     expect(component.todos.length).toBe(0);
   });
 
-  xit('toggleComplete - change the todo status to its inverse', () => {
+  it('toggleComplete - change the todo status to its inverse', () => {
+    const service = TestBed.get(TodoService);
     const todo: ITodo = { id: 1, text: 'new todo', status: TodoStatus.uncompleted };
+    const resultTodo: ITodo = { id: 1, text: 'new todo', status: TodoStatus.complete };
+
+    spyOn(service, 'removeTodo').and.callFake(() => {
+      return Observable.from([resultTodo]);
+    });
 
     component.toggleComplete(todo);
 
-    expect(todo.status).toBe(TodoStatus.complete);
+    expect(resultTodo.status).toBe(TodoStatus.complete);
   });
 
   it('filterTodos - filter todos list according to todosStatus', () => {
