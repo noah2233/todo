@@ -58,7 +58,7 @@ export class TodoComponent implements OnInit {
   }
 
   removeTodo(todo: ITodo) {
-    this._todoService.removeTodo(todo).subscribe((result) => {
+    this._todoService.removeTodo(todo).subscribe(() => {
       _.remove(this.todos, function (todoItem) {
         return todoItem.id === todo.id;
       });
@@ -66,7 +66,13 @@ export class TodoComponent implements OnInit {
   }
 
   toggleComplete(todo: ITodo) {
-    todo.status === TodoStatus.complete ? todo.status = TodoStatus.uncompleted : todo.status = TodoStatus.complete;
+    const localTodo: ITodo = { id: todo.id, status: todo.status, text: todo.text };
+    localTodo.status === TodoStatus.complete ? localTodo.status = TodoStatus.uncompleted : localTodo.status = TodoStatus.complete;
+
+    this._todoService.updateTodo(todo).subscribe(() => {
+      // if the update on server was successful
+      todo.status = localTodo.status;
+    });
   }
 
   filterTodos(todos: ITodo[], todosStatus: TodoStatus): ITodo[] {

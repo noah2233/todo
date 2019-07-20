@@ -81,7 +81,7 @@ describe('TodoComponent unit testing', () => {
     expect(component.todos.length).toBe(0);
   });
 
-  it('toggleComplete - change the todo status to its inverse', () => {
+  xit('toggleComplete - change the todo status to its inverse', () => {
     const todo: ITodo = { id: 1, text: 'new todo', status: TodoStatus.uncompleted };
 
     component.toggleComplete(todo);
