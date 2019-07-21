@@ -28,7 +28,7 @@ export class TodoService {
 
   getTodos(): Observable<ITodo[]> {
     return this._httpClient.get<ITodo[]>(this.todosUrl).pipe(
-      tap(data => console.log('getTodos: ' + JSON.stringify(data))),
+      tap(data => console.log('get Todos: ' + JSON.stringify(data))),
       catchError(this.handleError)
     );
   }
@@ -38,7 +38,7 @@ export class TodoService {
 
     return this._httpClient.post<ITodo>(this.todosUrl, todo, { headers: headers })
       .pipe(
-        tap(data => console.log('createTodo: ' + JSON.stringify(data))),
+        tap(data => console.log('create Todo: ' + JSON.stringify(data))),
         catchError(this.handleError)
       );
   }
@@ -46,17 +46,24 @@ export class TodoService {
   removeTodo(todo: ITodo): Observable<{}> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const url = `${this.todosUrl}/${todo.id}`;
+
     return this._httpClient.delete<ITodo>(url, { headers: headers })
       .pipe(
-        tap(data => console.log('deleteProduct: ' + todo.id)),
+        tap(() => console.log('delete Todo: ' + todo.id)),
         catchError(this.handleError)
       );
   }
 
-  // todo
-  // updateTodo(todo: ITodo): Observable<{}> {
-  //   const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-  // }
+  updateTodo(todo: ITodo): Observable<{}> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const url = `${this.todosUrl}/${todo.id}`;
+
+    return this._httpClient.put<ITodo>(url, todo, { headers: headers })
+      .pipe(
+        tap(() => console.log('update Todo: ' + todo.id)),
+        catchError(this.handleError)
+      );
+  }
 
   private handleError(err) {
     // in a real world app, we may send the server to some remote logging infrastructure

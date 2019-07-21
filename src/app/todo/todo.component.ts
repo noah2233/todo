@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 
 import { ITodo } from '../core/interface'
 import { TodoStatus } from '../core/enum'
@@ -13,7 +13,7 @@ import * as _ from 'lodash';
   styleUrls: ['./todo.component.css']
 })
 export class TodoComponent implements OnInit {
-  todoForm: FormGroup = this._formBuilder.group({ newTodo: ['', []] });
+  todoForm: FormGroup = this._formBuilder.group({ newTodo: ['', Validators.required] });
   todosStatus: TodoStatus = 0;
   public todos: ITodo[] = [];
 
@@ -38,10 +38,10 @@ export class TodoComponent implements OnInit {
     });
   }
 
-  addTodo(event, todoValue: string) {
+  addTodo(event, todoForm: FormGroup) {
     // if enter has been pressed and the value is not empty
-    if (event.keyCode === 13 && todoValue !== '') {
-      const todo: ITodo = { id: null, text: todoValue, status: TodoStatus.uncompleted };
+    if (event.key === 'Enter' && todoForm.valid) {
+      const todo: ITodo = { id: null, text: todoForm.get('newTodo').value, status: TodoStatus.uncompleted };
 
       this._todoService.addTodo(todo).subscribe((result) => {
         const todos: ITodo[] = this.todos;
@@ -58,7 +58,7 @@ export class TodoComponent implements OnInit {
   }
 
   removeTodo(todo: ITodo) {
-    this._todoService.removeTodo(todo).subscribe((result) => {
+    this._todoService.removeTodo(todo).subscribe(() => {
       _.remove(this.todos, function (todoItem) {
         return todoItem.id === todo.id;
       });
@@ -66,7 +66,13 @@ export class TodoComponent implements OnInit {
   }
 
   toggleComplete(todo: ITodo) {
-    todo.status === TodoStatus.complete ? todo.status = TodoStatus.uncompleted : todo.status = TodoStatus.complete;
+    const localTodo: ITodo = { id: todo.id, status: todo.status, text: todo.text };
+    localTodo.status === TodoStatus.complete ? localTodo.status = TodoStatus.uncompleted : localTodo.status = TodoStatus.complete;
+
+    this._todoService.updateTodo(todo).subscribe(() => {
+      // if the update on server was successful
+      todo.status = localTodo.status;
+    });
   }
 
   filterTodos(todos: ITodo[], todosStatus: TodoStatus): ITodo[] {

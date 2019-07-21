@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, FormControl, FormGroup, FormBuilder } from '@angular/forms';
 
 import { TodoComponent } from './todo.component';
 
@@ -12,14 +12,14 @@ import 'rxjs/add/observable/from';
 
 import { ITodo } from '@core/interface';
 import { TodoStatus } from '@core/enum';
-describe('TodoComponent', () => {
+describe('TodoComponent unit testing', () => {
   let component: TodoComponent;
   let fixture: ComponentFixture<TodoComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule, FormsModule, ReactiveFormsModule],
-      providers: [TodoService],
+      providers: [TodoService, FormBuilder],
       declarations: [TodoComponent],
       schemas: [NO_ERRORS_SCHEMA]
     })
@@ -47,14 +47,15 @@ describe('TodoComponent', () => {
 
   it('addTodo - should call add todo and add the result to the todos', () => {
     const service = TestBed.get(TodoService);
-
-    const todo: ITodo = { id: 1, text: 'new todo', status: TodoStatus.uncompleted };
+    const _formBuilder = TestBed.get(FormBuilder);
+    const todoForm: FormGroup = _formBuilder.group({ newTodo: ['newTodo', []] });
+    const todo: ITodo = { id: 1, text: todoForm.controls['newTodo'].value, status: TodoStatus.uncompleted };
 
     spyOn(service, 'addTodo').and.callFake(() => {
       return Observable.from([todo]);
     });
 
-    component.addTodo({ keyCode: 13 }, 'new todo');
+    component.addTodo({ key: 'Enter' }, todoForm as FormGroup);
 
     expect(component.todos.length).toBe(1);
   });
@@ -81,11 +82,17 @@ describe('TodoComponent', () => {
   });
 
   it('toggleComplete - change the todo status to its inverse', () => {
+    const service = TestBed.get(TodoService);
     const todo: ITodo = { id: 1, text: 'new todo', status: TodoStatus.uncompleted };
+    const resultTodo: ITodo = { id: 1, text: 'new todo', status: TodoStatus.complete };
+
+    spyOn(service, 'removeTodo').and.callFake(() => {
+      return Observable.from([resultTodo]);
+    });
 
     component.toggleComplete(todo);
 
-    expect(todo.status).toBe(TodoStatus.complete);
+    expect(resultTodo.status).toBe(TodoStatus.complete);
   });
 
   it('filterTodos - filter todos list according to todosStatus', () => {
