@@ -11,27 +11,27 @@ export class TodoData implements InMemoryDbService {
             {
                 'id': 1,
                 status: TodoStatus.uncompleted,
-                text: '1'
+                text: 'todo 1'
             },
             {
                 'id': 2,
                 status: TodoStatus.uncompleted,
-                text: '2'
+                text: 'todo 2'
             },
             {
                 'id': 3,
                 status: TodoStatus.uncompleted,
-                text: '5'
+                text: 'todo 3'
             },
             {
                 'id': 4,
                 status: TodoStatus.complete,
-                text: '8'
+                text: 'todo 4'
             },
             {
                 'id': 5,
                 status: TodoStatus.uncompleted,
-                text: '10'
+                text: 'todo 5'
             }
         ];
         return { todos };
